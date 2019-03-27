@@ -16,6 +16,7 @@ class Jobs extends Component {
     this.search = this.search.bind(this);
   }
 
+  // retrieves all jobs from database, adds to state
   async componentDidMount() {
     try {
       let jobs = await JoblyApi.getAllJobs(); //[{},...]
@@ -30,10 +31,10 @@ class Jobs extends Component {
     }
   }
 
+  // searches jobs by form input, updates state with all jobs that match query string
   async search(query) {
     try {
         let jobs = await JoblyApi.searchJobs(query);
-        console.log(jobs);
         this.setState({
             jobList: jobs //should make a copy here?
         })

@@ -15,6 +15,7 @@ class Company extends Component {
         }
     }
 
+    // gets specific company data by handle 
     async componentDidMount(){
         try {
             let handle = this.props.match.params.handle;

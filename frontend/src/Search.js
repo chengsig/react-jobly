@@ -13,10 +13,12 @@ class Search extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     
+    // updates state when form input changes
     handleChange(e) {
         this.setState({ [e.target.name]: e.target.value });
     }
     
+    // calls handleSearch when form is submitted 
     handleSubmit(e) {
         e.preventDefault();
         this.props.handleSearch(this.state.searchTerm);

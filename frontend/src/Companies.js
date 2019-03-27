@@ -15,6 +15,7 @@ class Companies extends Component {
         this.search = this.search.bind(this);
     }
 
+  // retrieves all companies from database, adds to state
     async componentDidMount() {
         try {
             let companies = await JoblyApi.getAllCompanies(); //[{},...]
@@ -28,6 +29,7 @@ class Companies extends Component {
         }
     }
 
+    // searches companies by form input, updates state with all companies that match query string
     async search(query) {
         try {
             let companies = await JoblyApi.searchCompanies(query);
