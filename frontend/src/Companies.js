@@ -6,37 +6,41 @@ import JoblyApi from "./JoblyApi";
 //import "./Companies.css";
 
 class Companies extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
-            companyList: [],
+            companyList: [],//[{},...]
             error: ""
         }
     }
-    
-    async componentDidMount(){
+
+    async componentDidMount() {
         try {
-            let companies = await JoblyApi.getCompany("arnold-berger-and-townsend");
+            let companies = await JoblyApi.getAllCompanies(); //[{},...]
             this.setState({
                 companyList: companies
             });
-        } catch(err){
+        } catch (err) {
             this.setState({
-                error: "company not found"
+                error: "bad request"
             })
-        }   
+        }
     }
 
     render() {
         console.log(this.state.companyList);
-    return (
-      <div className="Companies">
-        <Search />
-        {/* map over companyList */}
-        <CompanyCard />
-      </div>
-    );
-  }
+        return (
+            <div className="Companies">
+                <Search />
+                {this.state.companyList.map(c => (
+                    <CompanyCard handle={c.handle} 
+                                 name={c.name}
+                                 description={c.description}
+                                 logo_url={c.logo_url} />
+                ))}
+            </div>
+        );
+    }
 }
 
 export default Companies;
