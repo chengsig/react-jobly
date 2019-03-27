@@ -18,17 +18,13 @@ class Company extends Component {
     // gets specific company data by handle 
     async componentDidMount(){
         try {
-            let handle = this.props.match.params.handle;
-            let res = await JoblyApi.getCompany(handle);
-
-            // let {name, description, jobs} = await ...
-            //     {name, description, jobs}
-
+            let handle = this.props.handle;
+            let { name, description, jobs } = await JoblyApi.getCompany(handle);
 
             this.setState({
-                name: res.name,
-                description: res.description,
-                jobs: res.jobs
+                name,
+                description,
+                jobs
             })
         } catch(err) {
             this.setState({

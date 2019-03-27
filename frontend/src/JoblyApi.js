@@ -24,27 +24,37 @@ class JoblyApi {
         throw Array.isArray(message) ? message : [message];
       }
     }
-  
+    
+    // retrieves one company by handle from backend database 
+    // { handle: "", name: "", num_employees: #, description: "", logo_url, jobs: [{}]}
     static async getCompany(handle) {
       let res = await this.request(`companies/${handle}`);
       return res.company;
     }
 
+    // retrieves all companies in database
+    // [{ handle: "", name: "", num_employees: #, description: "", logo_url }, {} ... ]
     static async getAllCompanies() {
       let res = await this.request(`companies`);
       return res.companies;
     }
 
+    // retrieves all companies whose handle matches the query string
+    // [{ handle: "", name: "", num_employees: #, description: "", logo_url }, {} ... ]
     static async searchCompanies(query) {
       let res = await this.request(`companies?search=${query}`);
       return res.companies;
     }
 
+    // retrieves all jobs in database
+    // [{ id: #, title: "", company_handle: "", salary: #, equity: float#, state: null}, {} ...]
     static async getAllJobs() {
       let res = await this.request(`jobs`);
       return res.jobs;
     }
 
+    // retrieves one job whose title matches the query string
+    // { id: #, title: "", company_handle: "", salary: #, equity: float#, state: null }
     static async searchJobs(query) {
       let res = await this.request(`jobs?search=${query}`);
       return res.jobs;
