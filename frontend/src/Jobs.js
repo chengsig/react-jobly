@@ -9,19 +9,34 @@ class Jobs extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        jobList: [],//[{},...]
-        error: ""
+      jobList: [],//[{},...]
+      error: ""
     }
 
-    // this.search = this.search.bind(this);
-}
+    this.search = this.search.bind(this);
+  }
 
-async componentDidMount() {
+  async componentDidMount() {
     try {
-        let jobs = await JoblyApi.getAllJobs(); //[{},...]
+      let jobs = await JoblyApi.getAllJobs(); //[{},...]
+      this.setState({
+        jobList: jobs
+      });
+
+    } catch (err) {
+      this.setState({
+        error: "bad request"
+      })
+    }
+  }
+
+  async search(query) {
+    try {
+        let jobs = await JoblyApi.searchJobs(query);
+        console.log(jobs);
         this.setState({
-            jobList: jobs
-        });
+            jobList: jobs //should make a copy here?
+        })
     } catch (err) {
         this.setState({
             error: "bad request"
@@ -32,16 +47,14 @@ async componentDidMount() {
   render() {
     return (
       <div className="Jobs">
-        <Search />
-        <div className="Jobs-joblist">
+        <Search handleSearch={query => this.search(query)}/>
           {this.state.jobList.map(j => (
-            <JobCard key={ j.id } 
-                     title={ j.title } 
-                     salary={ j.salary } 
-                     equity={ j.equity }/>
+            <JobCard key={j.id}
+              title={j.title}
+              salary={j.salary}
+              equity={j.equity} />
           ))}
         </div>
-      </div>
     );
   }
 }

@@ -14,10 +14,7 @@ class Company extends Component {
             error: ""
         }
     }
-    // have handle in this.props.match.params.handle
-    // make get request to jobs using handle
-    // map over jobs 
-        // for each create JobCard instance
+
     async componentDidMount(){
         try {
             let handle = this.props.match.params.handle;
@@ -34,6 +31,7 @@ class Company extends Component {
             })
         }
     }
+
     render() {
         return (
         <div className="Company">

@@ -47,7 +47,7 @@ class JoblyApi {
 
     static async searchJobs(query) {
       let res = await this.request(`jobs?search=${query}`);
-      return res.Jobs;
+      return res.jobs;
     }
 
   }
