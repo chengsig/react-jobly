@@ -14,6 +14,7 @@ class Nav extends Component {
                 <p><NavLink exact to="/companies" activeStyle={activeStyle}>Companies</NavLink></p>
                 <p><NavLink exact to="/jobs" activeStyle={activeStyle}>Jobs</NavLink></p>
                 <p><NavLink exact to="/profile" activeStyle={activeStyle}>Profile</NavLink></p>
+                {/* log out button? */}
                 <p><NavLink exact to="/" activeStyle={activeStyle}>Log out WEIRD ONE BE AWARE</NavLink></p>
             </nav>
         );
