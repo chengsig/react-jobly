@@ -31,11 +31,9 @@ class Companies extends Component {
     async search(query) {
         try {
             let companies = await JoblyApi.searchCompanies(query);
-            console.log(query)
-            console.log(companies)
-            this.setState(st => ({
+            this.setState({
                 companyList: companies //should make a copy here?
-            }))
+            })
         } catch (err) {
             this.setState({
                 error: "bad request"

@@ -41,7 +41,10 @@ class Company extends Component {
             <p>{ this.state.description }</p>
             <div className="Company-jobs">
                 {this.state.jobs.map(j => (
-                    <JobCard />
+                    <JobCard key={ j.id } 
+                             title={ j.title } 
+                             salary={ j.salary } 
+                             equity={ j.equity }/>
                 ))}
             </div>
         </div>

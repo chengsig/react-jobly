@@ -6,9 +6,10 @@ class JobCard extends Component {
   render() {
     return (
       <div className="JobCard">
-        job title
-        job data
-        button with apply
+        <p><b>{ this.props.title }</b></p>
+        <p>{ this.props.salary }</p>
+        <p>{ this.props.equity }</p>
+        <button>Apply</button>
       </div>
     );
   }
