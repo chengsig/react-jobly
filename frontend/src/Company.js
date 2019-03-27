@@ -21,6 +21,10 @@ class Company extends Component {
             let handle = this.props.match.params.handle;
             let res = await JoblyApi.getCompany(handle);
 
+            // let {name, description, jobs} = await ...
+            //     {name, description, jobs}
+
+
             this.setState({
                 name: res.name,
                 description: res.description,

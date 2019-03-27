@@ -46,7 +46,7 @@ class Companies extends Component {
     render() {
         return (
             <div className="Companies">
-                <Search handleSearch={query => this.search(query)}/>
+                <Search handleSearch={this.search}/>
                 {this.state.companyList.map(c => (
                     <CompanyCard handle={c.handle} 
                                  name={c.name}

@@ -11,7 +11,7 @@ class Nav extends Component {
         return(
             <nav>
                 <p><NavLink exact to="/" activeStyle={activeStyle}>Jobly</NavLink></p>
-                <p><NavLink exact to="/companies" activeStyle={activeStyle}>Companies</NavLink></p>
+                <p><NavLink  to="/companies" activeStyle={activeStyle}>Companies</NavLink></p>
                 <p><NavLink exact to="/jobs" activeStyle={activeStyle}>Jobs</NavLink></p>
                 <p><NavLink exact to="/profile" activeStyle={activeStyle}>Profile</NavLink></p>
                 {/* log out button? */}
