@@ -9,7 +9,7 @@ class CompanyCard extends Component {
         <Link to={`/companies/${this.props.handle}`}>
             <p key={this.props.handle}>{this.props.name}</p>
             <h2>{this.props.description}</h2>
-            <image src={this.props.logo_url} alt="company logo"/>
+            <img src={this.props.logo_url} alt="company logo"/>
         </Link>
       </div>
     );

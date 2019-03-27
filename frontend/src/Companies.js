@@ -28,7 +28,6 @@ class Companies extends Component {
     }
 
     render() {
-        console.log(this.state.companyList);
         return (
             <div className="Companies">
                 <Search />
