@@ -7,7 +7,8 @@ class Search extends Component {
         super(props);
         this.state = {
             searchTerm: "",//[{},...]
-            error: ""
+            error: "",
+            //loading: false TODO
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);

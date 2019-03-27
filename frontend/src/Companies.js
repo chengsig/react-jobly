@@ -10,7 +10,8 @@ class Companies extends Component {
         super(props);
         this.state = {
             companyList: [],//[{},...]
-            error: ""
+            error: "",
+            loading: true
         }
         this.search = this.search.bind(this);
     }
@@ -20,7 +21,8 @@ class Companies extends Component {
         try {
             let companies = await JoblyApi.getAllCompanies(); //[{},...]
             this.setState({
-                companyList: companies
+                companyList: companies,
+                loading: false
             });
         } catch (err) {
             this.setState({
@@ -44,6 +46,10 @@ class Companies extends Component {
     }
 
     render() {
+        if (this.state.loading) {
+            return <p>Loading...</p>
+        }
+
         return (
             <div className="Companies">
                 <Search handleSearch={this.search}/>

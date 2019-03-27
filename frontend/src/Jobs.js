@@ -10,7 +10,8 @@ class Jobs extends Component {
     super(props);
     this.state = {
       jobList: [],//[{},...]
-      error: ""
+      error: "",
+      loading: true
     }
 
     this.search = this.search.bind(this);
@@ -21,7 +22,8 @@ class Jobs extends Component {
     try {
       let jobs = await JoblyApi.getAllJobs(); //[{},...]
       this.setState({
-        jobList: jobs
+        jobList: jobs,
+        loading: false
       });
 
     } catch (err) {
@@ -46,6 +48,10 @@ class Jobs extends Component {
 }
 
   render() {
+    if (this.state.loading) {
+        return <p>Loading...</p>
+    }
+
     return (
       <div className="Jobs">
         <Search handleSearch={query => this.search(query)}/>
