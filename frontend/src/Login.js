@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import JoblyApi from "./JoblyApi";
-import Alert from "./Alert";
+// import Alert from "./Alert";
 
 //import "./Login.css";
 
@@ -21,10 +21,13 @@ class Login extends Component {
         this.toggleFormState = this.toggleFormState.bind(this);
     }
 
+    // on form input change, updates state Login
     handleChange(e) {
         this.setState({ [e.target.name]: e.target.value });
     }
 
+    // when given valid credentials, will login or signup user. Saves JWT to localStorage and 
+    // redirects to /jobs. Resets state of Login.
     async handleSubmit(e) {
         e.preventDefault();
         try {
@@ -54,12 +57,14 @@ class Login extends Component {
         }
     }
 
+    // toggles login or signup form
     toggleFormState(e) {
         if (e.target.name !== this.state.loginOrSignup) {
             this.setState({ loginOrSignup: e.target.name });
         }
     }
 
+    // if signup button is clicked, renders signup form. else, renders login form.
     render() {
         let signUpPortion = null;
         if (this.state.loginOrSignup === "signup") {
