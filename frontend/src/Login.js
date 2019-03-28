@@ -43,7 +43,6 @@ class Login extends Component {
                                                   this.state.email);
             }
 
-            console.log(this.props.handleUserUpdate);
             this.props.handleUserUpdate(this.state.username);
             localStorage.setItem("_token", token);
 
@@ -123,6 +122,7 @@ class Login extends Component {
                         <input
                             name="password"
                             id="password"
+                            type="password"
                             placeholder="Enter password"
                             onChange={this.handleChange}
                             value={this.state.name}

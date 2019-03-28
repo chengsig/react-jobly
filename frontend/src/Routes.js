@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
-import Nav from './Nav';
 import Homepage from './Homepage';
 import Companies from './Companies';
 import Company from './Company';
 import Jobs from './Jobs';
 import Login from './Login';
-import Logout from './Logout';
 import Profile from './Profile';
 
 class Routes extends Component {
@@ -20,9 +18,6 @@ class Routes extends Component {
                     <Route exact path="/companies" render={() => <Companies />} />
                     <Route exact path="/jobs" render={() => <Jobs />} />
                     <Route exact path="/login" render={(rtProps) => <Login {...rtProps}
-                        user={this.props.user}
-                        handleUserUpdate={() => this.props.handleUserUpdate} />} />
-                    <Route exact path="/logout" render={(rtProps) => <Logout {...rtProps}
                         user={this.props.user}
                         handleUserUpdate={this.props.handleUserUpdate} />} />
                     <Route exact path="/profile" render={() => <Profile />} />
