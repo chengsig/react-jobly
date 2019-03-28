@@ -84,6 +84,16 @@ class JoblyApi {
       }, "post");
       return res.token;
     }
+
+    // makes get request to /users/:username, if sucessful returns all 
+    // data about user.
+    // {username, first_name, last_name, email, photo_url, jobs: [{},{}...]}
+    static async getUser(username, token){
+      let res = await this.request(`users/${username}`, {
+        "_token": token
+      });
+      return res.user;
+    }
   }
 
   export default JoblyApi;
