@@ -1,0 +1,8 @@
+nav {
+    display: flex;
+    background-color: mediumorchid;
+}
+
+nav p {
+    margin: 15px;
+}
