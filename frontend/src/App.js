@@ -22,6 +22,7 @@ class App extends Component {
     this.props.history.push('/'); //rtProps given by withRouter
   }
 
+  //update the current user in state with log in information
   updateUser(username) {
     this.setState({
       currUser: { username }

@@ -7,7 +7,7 @@ class HomePage extends Component {
   render() {
     let loginBtn = <div><Link to="/login">Login</Link></div>
     let message = "Welcome back!"
-    let display = localStorage._token !== undefined ? message : loginBtn
+    let display = this.props.user !== null ? message : loginBtn
 
     return (
       <div className="HomePage">

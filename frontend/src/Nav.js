@@ -9,6 +9,7 @@ class Nav extends Component {
             color: "tomato"
         }
 
+        //if user is not logged in, render nav bar for login only
         if (this.props.user === null) {
             return (
                 <nav>
@@ -17,6 +18,7 @@ class Nav extends Component {
                 </nav>
             );
         }
+        // else render full nav bar
         return (
             <nav>
                 <p><NavLink exact to="/" activeStyle={activeStyle}>Jobly</NavLink></p>
