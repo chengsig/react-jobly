@@ -5,7 +5,6 @@ import jwt_decode from "jwt-decode";
 import Nav from './Nav';
 import Routes from './Routes';
 import JoblyApi from './JoblyApi';
-import Alert from "./Alert";
 
 import './App.css';
 
