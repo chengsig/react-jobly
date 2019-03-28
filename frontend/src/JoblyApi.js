@@ -6,7 +6,7 @@ class JoblyApi {
       // "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6" +
       // "InRlc3R1c2VyIiwiaXNfYWRtaW4iOmZhbHNlLCJpYXQiOjE1NDE1N" +
       // "jQ2Nzl9.LYDHSkl81gEm7jfHv9wJhzD4ndpuBkSzBan8Nirb6UY"
-      localStorage.getItem("token")
+      localStorage.getItem("_token")
       );
   
       console.debug("API Call:", endpoint, paramsOrData, verb);
@@ -65,10 +65,10 @@ class JoblyApi {
     // makes post request to /login, if sucessful returns JWT 
     // { "" }
     static async userLogin(username, pwd){
-      let res = await axios.post("/login", {
+      let res = await this.request("login", {
         "username": username,
         "password": pwd
-      });
+      }, "post");
       return res.token;
     }
   }

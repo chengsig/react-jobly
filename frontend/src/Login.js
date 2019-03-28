@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import JoblyApi from "./JoblyApi";
+import Alert from "./Alert";
+
 //import "./Login.css";
 
 class Login extends Component {
@@ -20,14 +22,21 @@ class Login extends Component {
 
   async handleSubmit(e) {
     e.preventDefault();
-    let token = await JoblyApi.userLogin(this.state.username, this.state.password);
+    try {
+      let token = await JoblyApi.userLogin(this.state.username, this.state.password);
 
-    localStorage.setItem("token", token);
+      localStorage.setItem("_token", token);
 
-    this.setState({
-      username: "",
-      password: ""
-    })
+      this.props.history.push("/jobs")
+
+      this.setState({
+        username: "",
+        password: ""
+      });
+      
+    } catch (err){
+      console.log("error")
+    }
   }
 
   render() {
@@ -44,6 +53,7 @@ class Login extends Component {
               value={this.state.name}
             />
           </div>
+
           <div className="Login-pwd">
             <label htmlFor="password">Password: </label>
             <input
