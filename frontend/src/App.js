@@ -5,6 +5,7 @@ import jwt_decode from "jwt-decode";
 import Nav from './Nav';
 import Routes from './Routes';
 import JoblyApi from './JoblyApi';
+import Alert from "./Alert";
 
 import './App.css';
 
@@ -33,10 +34,10 @@ class App extends Component {
     this.setState({
       currUser: { username }
     });
-
   }
 
-  //if user has logged, keeps user logged in when page is refreshed.
+  //if client has logged in, keeps client logged in when page is refreshed. if client 
+  // has not logged in, redirects to login page.
   async componentDidMount(){
     let token = localStorage._token
     try {
@@ -49,6 +50,8 @@ class App extends Component {
         this.setState({
           currUser: user
         });
+      } else {
+        this.props.history.push("/login");
       }
     } catch (err) {
       this.setState({
