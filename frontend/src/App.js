@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
+import Nav from './Nav';
 import Routes from './Routes';
 import './App.css';
 
@@ -15,7 +17,7 @@ class App extends Component {
 
   // logout fn
 
-  updateUser(username){
+  updateUser(username) {
     this.setState({
       loggedInUsername: username
     }, () => console.log(this.setState.loggedInUsername))
@@ -24,7 +26,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Routes user={ this.state.loggedInUsername } handleUserUpdate={ this.updateUser }/>
+        <BrowserRouter>
+          <Nav />
+          <Routes user={this.state.loggedInUsername} handleUserUpdate={this.updateUser} />
+        </BrowserRouter>
       </div>
     );
   }

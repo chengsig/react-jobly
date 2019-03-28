@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
+import { Route, Redirect, Switch } from 'react-router-dom';
 import Nav from './Nav';
 import Homepage from './Homepage';
 import Companies from './Companies';
@@ -10,30 +10,27 @@ import Logout from './Logout';
 import Profile from './Profile';
 
 class Routes extends Component {
-    
-    render(){
-        console.log("Routes render");
 
+    render() {
         return (
-            <BrowserRouter>
-                <Nav />
+            <div className="Routes">
                 <Switch>
-                    <Route exact path="/" render={ () => <Homepage /> }/>
-                    <Route exact path="/companies/:handle" render={ (rtProps) => <Company handle={rtProps.match.params.handle}/> }/>
-                    <Route exact path="/companies" render={ () => <Companies /> }/>
-                    <Route exact path="/jobs" render={ () => <Jobs /> }/>
-                    <Route exact path="/login" render={ (rtProps) => <Login { ...rtProps } 
-                                                                      user={ this.props.user } 
-                                                                      handleUserUpdate={ () => this.props.handleUserUpdate }/> }/>
-                    <Route exact path="/logout" render={ (rtProps) => <Logout { ...rtProps } 
-                                                                       user={ this.props.user }
-                                                                       handleUserUpdate={ this.props.handleUserUpdate } /> }/>
-                    <Route exact path="/profile" render={ () => <Profile /> }/>
-                    <Redirect to="/"/>
+                    <Route exact path="/" render={() => <Homepage />} />
+                    <Route exact path="/companies/:handle" render={(rtProps) => <Company handle={rtProps.match.params.handle} />} />
+                    <Route exact path="/companies" render={() => <Companies />} />
+                    <Route exact path="/jobs" render={() => <Jobs />} />
+                    <Route exact path="/login" render={(rtProps) => <Login {...rtProps}
+                        user={this.props.user}
+                        handleUserUpdate={() => this.props.handleUserUpdate} />} />
+                    <Route exact path="/logout" render={(rtProps) => <Logout {...rtProps}
+                        user={this.props.user}
+                        handleUserUpdate={this.props.handleUserUpdate} />} />
+                    <Route exact path="/profile" render={() => <Profile />} />
+                    <Redirect to="/" />
                 </Switch>
-            </BrowserRouter>
+            </div>
         );
-    }   
+    }
 }
 
 export default Routes;
