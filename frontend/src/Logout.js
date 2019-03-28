@@ -6,6 +6,7 @@ class Logout extends Component {
     // clear localStorage
     // push history "/"
     logout(){
+        
         localStorage.clear();
         this.props.history.push("/")
     }

@@ -4,12 +4,13 @@ import './Nav.css';
 
 class Nav extends Component {
     render(){
+        console.log("is nav rendering?", Math.random())
         const activeStyle = {
             fontWeight: "bold",
             color: "tomato"
         }
 
-        if (localStorage._token === undefined){
+        if (this.props.loggedInUsername === null){
             return (
                 <nav>
                     <p><NavLink exact to="/" activeStyle={activeStyle}>Jobly</NavLink></p>

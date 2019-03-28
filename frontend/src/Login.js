@@ -43,14 +43,16 @@ class Login extends Component {
                                                   this.state.email);
             }
 
+            console.log(this.props.handleUserUpdate);
+            this.props.handleUserUpdate(this.state.username);
             localStorage.setItem("_token", token);
-
-            this.props.history.push("/jobs")
 
             this.setState({
                 username: "",
                 password: ""
             });
+
+            this.props.history.push("/jobs");
 
         } catch (err) {
             console.log("error")
