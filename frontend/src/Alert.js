@@ -6,7 +6,7 @@ class Alert extends Component {
   render() {
     return (
       <div className="Alert">
-        PLEASE LOG IN FIRST YOU GENIUS YOU!
+          <p>{this.props.error}</p>
       </div>
     );
   }

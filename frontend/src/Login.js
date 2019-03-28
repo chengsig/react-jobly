@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import JoblyApi from "./JoblyApi";
-// import Alert from "./Alert";
+import Alert from "./Alert";
 
 //import "./Login.css";
 
@@ -16,6 +16,7 @@ class Login extends Component {
             loginOrSignup: "login",
             error: ""
         };
+
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.toggleFormState = this.toggleFormState.bind(this);
@@ -56,7 +57,10 @@ class Login extends Component {
             this.props.history.push("/jobs");
 
         } catch (err) {
-            console.log("error")
+            console.log(err);
+            this.setState({
+                error: err[0]
+            })
         }
     }
 
@@ -69,6 +73,12 @@ class Login extends Component {
 
     // if signup button is clicked, renders signup form. else, renders login form.
     render() {
+        let errorMsg;
+
+        if (this.state.error !== "") {
+            errorMsg = <Alert error={this.state.error}/>
+        }
+
         let signUpPortion = null;
         if (this.state.loginOrSignup === "signup") {
             signUpPortion = (
@@ -131,6 +141,7 @@ class Login extends Component {
                         />
                     </div>
                     {signUpPortion}
+                    {errorMsg}
                     <button>Submit</button>
                 </form>
             </div>
