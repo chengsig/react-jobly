@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import JobCard from './JobCard';
 import Search from './Search';
 import JoblyApi from './JoblyApi';
-//import "./Jobs.css";
+import "./Jobs.css";
 
 class Jobs extends Component {
   constructor(props) {

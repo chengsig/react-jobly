@@ -1,0 +1,20 @@
+.JobCard {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 500px;
+    margin: auto;
+    position: relative;
+}
+
+#JobCard-btn-apply {
+    background-color: #827fff;
+    color: white;
+    border: none;
+    height: 30px;
+    display: inline;
+    font-size: 16px;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    border-radius: 10%;
+}
