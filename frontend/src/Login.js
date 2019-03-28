@@ -5,70 +5,128 @@ import Alert from "./Alert";
 //import "./Login.css";
 
 class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: "",
-      password: "",
-      error: ""
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
-  }
-
-  async handleSubmit(e) {
-    e.preventDefault();
-    try {
-      let token = await JoblyApi.userLogin(this.state.username, this.state.password);
-
-      localStorage.setItem("_token", token);
-
-      this.props.history.push("/jobs")
-
-      this.setState({
-        username: "",
-        password: ""
-      });
-      
-    } catch (err){
-      console.log("error")
+    constructor(props) {
+        super(props);
+        this.state = {
+            username: "",
+            password: "",
+            firstname: "",
+            lastname: "",
+            email: "",
+            loginOrSignup: "login",
+            error: ""
+        };
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.toggleFormState = this.toggleFormState.bind(this);
     }
-  }
 
-  render() {
-    return (
-      <div className="Login">
-        <form onSubmit={this.handleSubmit}>
-          <div className="Login-username">
-            <label htmlFor="username">Username: </label>
-            <input
-              name="username"
-              id="username"
-              placeholder="Enter username"
-              onChange={this.handleChange}
-              value={this.state.name}
-            />
-          </div>
+    handleChange(e) {
+        this.setState({ [e.target.name]: e.target.value });
+    }
 
-          <div className="Login-pwd">
-            <label htmlFor="password">Password: </label>
-            <input
-              name="password"
-              id="password"
-              placeholder="Enter password"
-              onChange={this.handleChange}
-              value={this.state.name}
-            />
-          </div>
-          <button>Submit</button>
-        </form>
-      </div>
-    );
-  }
+    async handleSubmit(e) {
+        e.preventDefault();
+        try {
+            let token;
+            if (this.state.loginOrSignup === "login") {
+                token = await JoblyApi.userLogin(this.state.username, this.state.password);
+            }
+            else if (this.state.loginOrSignup === "signup") {
+                token = await JoblyApi.userSignup(this.state.username, 
+                                                  this.state.password, 
+                                                  this.state.firstname, 
+                                                  this.state.lastname, 
+                                                  this.state.email);
+            }
+
+            localStorage.setItem("_token", token);
+
+            this.props.history.push("/jobs")
+
+            this.setState({
+                username: "",
+                password: ""
+            });
+
+        } catch (err) {
+            console.log("error")
+        }
+    }
+
+    toggleFormState(e) {
+        if (e.target.name !== this.state.loginOrSignup) {
+            this.setState({ loginOrSignup: e.target.name });
+        }
+    }
+
+    render() {
+        let signUpPortion = null;
+        if (this.state.loginOrSignup === "signup") {
+            signUpPortion = (
+                <div className="Signup">
+                    <div className="Signup-firstname">
+                        <label htmlFor="firstname">First name:</label>
+                        <input
+                            name="firstname"
+                            id="firstname"
+                            onChange={this.handleChange}
+                            value={this.state.name}
+                        />
+                    </div>
+                    <div className="Signup-lastname">
+                        <label htmlFor="lastname">Last name:</label>
+                        <input
+                            name="lastname"
+                            id="lastname"
+                            onChange={this.handleChange}
+                            value={this.state.name}
+                        />
+                    </div>
+                    <div className="Signup-email">
+                        <label htmlFor="email">Email:</label>
+                        <input
+                            name="email"
+                            id="email"
+                            onChange={this.handleChange}
+                            value={this.state.name}
+                        />
+                    </div>
+                </div>
+            )
+        }
+        return (
+            <div className="Login">
+                <button className="Login-btn" name="login" key="login" onClick={this.toggleFormState}>Login</button>
+                <button className="Signup-btn" name="signup" key="signup" onClick={this.toggleFormState}>Sign up</button>
+                <form onSubmit={this.handleSubmit}>
+                    <div className="Login-username">
+                        <label htmlFor="username">Username: </label>
+                        <input
+                            name="username"
+                            id="username"
+                            placeholder="Enter username"
+                            onChange={this.handleChange}
+                            value={this.state.name}
+                        />
+                    </div>
+
+                    <div className="Login-pwd">
+                        <label htmlFor="password">Password: </label>
+                        <input
+                            name="password"
+                            id="password"
+                            placeholder="Enter password"
+                            onChange={this.handleChange}
+                            value={this.state.name}
+                        />
+                    </div>
+                    {signUpPortion}
+                    <button>Submit</button>
+                </form>
+            </div>
+        );
+    }
 }
 
 export default Login;

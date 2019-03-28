@@ -9,7 +9,7 @@ class Nav extends Component {
             color: "tomato"
         }
 
-        if (localStorage.token === undefined){
+        if (localStorage._token === undefined){
             return (
                 <nav>
                     <p><NavLink exact to="/" activeStyle={activeStyle}>Jobly</NavLink></p>

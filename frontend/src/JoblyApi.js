@@ -71,6 +71,19 @@ class JoblyApi {
       }, "post");
       return res.token;
     }
+
+    // makes post request to /users, if successful sign up a user
+    // and returns JWT {""}
+    static async userSignup(username, pwd, fname, lname, email){
+      let res = await this.request("users", {
+        "username": username,
+        "password": pwd,
+        "first_name": fname,
+        "last_name": lname,
+        "email": email
+      }, "post");
+      return res.token;
+    }
   }
 
   export default JoblyApi;
