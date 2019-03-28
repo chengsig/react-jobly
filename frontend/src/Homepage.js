@@ -1,15 +1,19 @@
 import React, { Component } from "react";
-//import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 //import "./HomePage.css";
 
 
 class HomePage extends Component {
   render() {
+    let loginBtn = <div><Link to="/login">Login</Link></div>
+    let message = "Welcome back!"
+    let display = localStorage._token !== undefined ? message : loginBtn
+
     return (
       <div className="HomePage">
         <b>Jobly</b>
-        <h2>All the jobs in one, convenient place. Welcome Back!</h2>
-        add login button if currently not logged in
+        <h2>All the jobs in one, convenient place.</h2>
+        { display } 
       </div>
     );
   }
