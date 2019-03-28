@@ -8,7 +8,16 @@ class Nav extends Component {
             fontWeight: "bold",
             color: "tomato"
         }
-        return(
+
+        if (localStorage.token === undefined){
+            return (
+                <nav>
+                    <p><NavLink exact to="/" activeStyle={activeStyle}>Jobly</NavLink></p>
+                    <p><NavLink exact to="/login" activeStyle={activeStyle}>Login</NavLink></p>
+                </nav>
+            );
+        }
+        return (
             <nav>
                 <p><NavLink exact to="/" activeStyle={activeStyle}>Jobly</NavLink></p>
                 <p><NavLink  to="/companies" activeStyle={activeStyle}>Companies</NavLink></p>

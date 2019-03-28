@@ -1,11 +1,14 @@
 import React, { Component } from "react";
+import JoblyApi from "./JoblyApi";
 //import "./Login.css";
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: ""
+      username: "",
+      password: "",
+      error: ""
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -15,18 +18,23 @@ class Login extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  handleSubmit(e) {
+  async handleSubmit(e) {
     e.preventDefault();
-    //this.props.addColor({ [this.state.name]: this.state.hex });
-    //this.props.history.push("/colors");
+    let token = await JoblyApi.userLogin(this.state.username, this.state.password);
+
+    localStorage.setItem("token", token);
+
+    this.setState({
+      username: "",
+      password: ""
+    })
   }
 
   render() {
     return (
-      <div className="NewColor">
+      <div className="Login">
         <form onSubmit={this.handleSubmit}>
-        login form data
-          <div>
+          <div className="Login-username">
             <label htmlFor="username">Username: </label>
             <input
               name="username"
@@ -36,17 +44,17 @@ class Login extends Component {
               value={this.state.name}
             />
           </div>
-          {/* <div>
-            <label htmlFor="hex">Color value</label>
+          <div className="Login-pwd">
+            <label htmlFor="password">Password: </label>
             <input
-              type="color"
-              name="hex"
-              id="hex"
+              name="password"
+              id="password"
+              placeholder="Enter password"
               onChange={this.handleChange}
-              value={this.state.hex}
+              value={this.state.name}
             />
           </div>
-          <input type="Submit" value="Add this color" readOnly /> */}
+          <button>Submit</button>
         </form>
       </div>
     );

@@ -62,6 +62,15 @@ class JoblyApi {
       return res.jobs;
     }
 
+    // makes post request to /login, if sucessful returns JWT 
+    // { "" }
+    static async userLogin(username, pwd){
+      let res = await axios.post("/login", {
+        "username": username,
+        "password": pwd
+      });
+      return res.token;
+    }
   }
 
   export default JoblyApi;
