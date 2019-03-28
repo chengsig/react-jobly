@@ -46,7 +46,7 @@ class Login extends Component {
 
             // update currUser state with logged in user info 
             // calling up to app for the update method
-            this.props.handleUserUpdate(this.state.username);
+            this.props.handleLogin(this.state.username);
             localStorage.setItem("_token", token);
 
             this.setState({

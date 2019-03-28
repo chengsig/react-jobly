@@ -13,10 +13,11 @@ class App extends Component {
     super(props);
     this.state = {
       currUser: null, //{username: "", ... }
+      loading: true,
       error: ""
     };
 
-    this.updateUser = this.updateUser.bind(this);
+    this.loginUser = this.loginUser.bind(this);
     this.logout = this.logout.bind(this);
   }
 
@@ -29,11 +30,13 @@ class App extends Component {
   }
 
   //update the current user in state with log in information
-  updateUser(username) {
+  loginUser(username) {
     this.setState({
       currUser: { username }
     });
   }
+
+  
 
   //if client has logged in, keeps client logged in when page is refreshed. if client 
   // has not logged in, redirects to login page.
@@ -47,7 +50,8 @@ class App extends Component {
         let user = await JoblyApi.getUser(username, token);
   
         this.setState({
-          currUser: user
+          currUser: user,
+          loading: false
         });
       } else {
         this.props.history.push("/login");
@@ -60,12 +64,15 @@ class App extends Component {
   }
 
   render() {
+    if (this.state.loading === true) {
+      return <p>Loading...</p>
+    }
     return (
       <div className="App">
         <Nav user={this.state.currUser}
           handleLogout={this.logout} />
         <Routes user={this.state.currUser}
-          handleUserUpdate={this.updateUser} />
+          handleLogin={this.loginUser} />
       </div>
     );
   }
