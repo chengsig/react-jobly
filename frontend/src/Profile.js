@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Alert from './Alert';
+//import Alert from './Alert';
 //import { Link } from "react-router-dom";
 //import "./Profile.css";
 
@@ -30,12 +30,16 @@ class Profile extends Component {
                 this.setState({ error: "must enter password" });
             }
             else {
-                this.props.handleUpdate(this.state.username,
-                                    this.state.firstname,
-                                    this.state.lastname,
-                                    this.state.email,
-                                    this.state.photo_url,
-                                    this.state.password)
+                let updateData = {
+                    "firs_name": this.state.firstname,
+                    "last_name": this.state.lastname,
+                    "email": this.state.email,
+                    "photo_url": this.state.photo_url,
+                    "password": this.state.password,
+                    "_token": localStorage._token
+                }
+                this.props.handleUpdate(this.props.user.username,
+                                    updateData)
             }
         } catch (err) {
            console.log("error"); // come back to this
@@ -69,7 +73,6 @@ class Profile extends Component {
                         <label htmlFor="email">Email: </label>
                         <input name="email"
                             id="email"
-                            type="email"
                             placeholder={this.props.user.email}
                             onChange={this.handleChange}
                             value={this.state.name} />

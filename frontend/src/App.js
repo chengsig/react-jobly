@@ -37,9 +37,10 @@ class App extends Component {
     });
   }
 
-  async update(userInfo){
+  async update(username, userInfo){
     try {
-      let updatedUserInfo = await JoblyApi.update(userInfo.username, userInfo)
+      console.log(userInfo)
+      let updatedUserInfo = await JoblyApi.updateUser(username, userInfo)
       this.setState({
         currUser: { updatedUserInfo }
       });

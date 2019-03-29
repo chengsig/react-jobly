@@ -94,6 +94,12 @@ class JoblyApi {
       });
       return res.user;
     }
+
+    //makes patch request to /users/:username with data from data form
+    static async updateUser(username, data) {
+      let res = await this.request(`users/${username}`, data, "patch");
+      return res.user;
+    }
   }
 
   export default JoblyApi;
