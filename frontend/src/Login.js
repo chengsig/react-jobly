@@ -37,17 +37,21 @@ class Login extends Component {
                 token = await JoblyApi.userLogin(this.state.username, this.state.password);
             }
             else if (this.state.loginOrSignup === "signup") {
-                token = await JoblyApi.userSignup(this.state.username, 
-                                                  this.state.password, 
-                                                  this.state.firstname, 
-                                                  this.state.lastname, 
-                                                  this.state.email);
+                let signupData = { 
+                    "username": this.state.username, 
+                    "password": this.state.password, 
+                    "first_name": this.state.firstname, 
+                    "last_name": this.state.lastname, 
+                    "email": this.state.email
+                }
+                token = await JoblyApi.userSignup(signupData);
             }
 
             // update currUser state with logged in user info 
             // calling up to app for the update method
             this.props.handleLogin(this.state.username);
             localStorage.setItem("_token", token);
+            console.log('we got here', token)
 
             this.setState({
                 username: "",

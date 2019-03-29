@@ -27,15 +27,38 @@ class App extends Component {
   // redirect to home
   logout() {
     this.setState({ currUser: null });
-    localStorage.clear();
+    localStorage.removeItem("_token");
     this.props.history.push('/'); //rtProps given by withRouter
   }
 
   //update the current user in state with log in information
-  loginUser(username) {
-    this.setState({
-      currUser: { username }
-    });
+  async loginUser(username) {
+    let token = localStorage._token
+    try {
+      if (token !== undefined) {
+        let user = await JoblyApi.getUser(username, token);
+        let jobsId = new Set();
+      
+        for (let key in user.jobs ){
+          jobsId.add(user.jobs[key].id);
+        }
+        
+        user['appliedJobsIds'] = jobsId;
+
+        this.setState({
+          currUser: user,
+          loading: false
+        });
+
+      } else {
+        this.setState({ loading: false });
+        this.props.history.push("/login");
+      }
+    } catch (err) {
+      this.setState({
+        error: err[0]
+      })
+    }
   }
 
   //update the current user data with profile updates
@@ -54,13 +77,13 @@ class App extends Component {
 
   //apply a job for the user
   async apply(jobId) {
-    let token = localStorage._token;
+    let token = localStorage._token; // WJB token
     try {
       
-      await JoblyApi.applyJob(jobId, token);
+      await JoblyApi.applyJob(jobId); // wJB TODO: don't need token
       let payload = jwt_decode(token);
-      let username = payload.username;
-      let user = await JoblyApi.getUser(username, token);
+      let username = payload.username; // WJB no
+      let user = await JoblyApi.getUser(username, token); // don't need to re-get from server
       let jobsId = new Set();
       
       for (let key in user.jobs ){
@@ -105,6 +128,7 @@ class App extends Component {
         });
 
       } else {
+        this.setState({ loading: false });
         this.props.history.push("/login");
       }
     } catch (err) {

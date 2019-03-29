@@ -6,7 +6,7 @@ class JobCard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            btnText: "APPLY"
+            btnText: "APPLY" // WJB TODO: hasApplied
         }
         this.handleClick = this.handleClick.bind(this);
     }

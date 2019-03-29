@@ -75,8 +75,9 @@ class JoblyApi {
     // makes post request to /users, if successful sign up a user
     // and returns JWT {""}
     static async userSignup(username, pwd, fname, lname, email){
-      let res = await this.request("users", {
+      let res = await this.request("users/", {
         "username": username,
+        "password": pwd,
         "first_name": fname,
         "last_name": lname,
         "email": email
@@ -101,9 +102,8 @@ class JoblyApi {
     }
 
     // makes post request to /jobs/:id/apply to apply a specific job
-    static async applyJob(jobId, token) {
-      let req = {'_token': token}
-      let res = await this.request(`jobs/${jobId}/apply`, req, "post");
+    static async applyJob(jobId) {
+      let res = await this.request(`jobs/${jobId}/apply`, "post");
       return res.message;
     }
   }
