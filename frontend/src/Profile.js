@@ -30,7 +30,8 @@ class Profile extends Component {
                 this.setState({ error: "must enter password" });
             }
             else {
-                this.props.handleUpdate(this.state.firstname,
+                this.props.handleUpdate(this.state.username,
+                                    this.state.firstname,
                                     this.state.lastname,
                                     this.state.email,
                                     this.state.photo_url,

@@ -20,7 +20,7 @@ class Routes extends Component {
                     <Route exact path="/login" render={(rtProps) => <Login {...rtProps}
                         user={this.props.user}
                         handleLogin={this.props.handleLogin} />} />
-                    <Route exact path="/profile" render={() => <Profile user={this.props.user}/>} />
+                    <Route exact path="/profile" render={() => <Profile user={this.props.user} handleUpdate={this.props.handleUpdate}/>} />
                     <Redirect to="/" />
                 </Switch>
             </div>

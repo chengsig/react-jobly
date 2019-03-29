@@ -19,6 +19,7 @@ class App extends Component {
 
     this.loginUser = this.loginUser.bind(this);
     this.logout = this.logout.bind(this);
+    this.update = this.update.bind(this);
   }
 
   // logout a current user from app state and clear localStorage token
@@ -36,7 +37,18 @@ class App extends Component {
     });
   }
 
-  
+  async update(userInfo){
+    try {
+      let updatedUserInfo = await JoblyApi.update(userInfo.username, userInfo)
+      this.setState({
+        currUser: { updatedUserInfo }
+      });
+    } catch (err){
+      this.setState({
+        error: "unable to update"
+      })
+    }
+  }
 
   //if client has logged in, keeps client logged in when page is refreshed. if client 
   // has not logged in, redirects to login page.
@@ -72,7 +84,7 @@ class App extends Component {
         <Nav user={this.state.currUser}
           handleLogout={this.logout} />
         <Routes user={this.state.currUser}
-          handleLogin={this.loginUser} />
+          handleLogin={this.loginUser} handleUpdate={this.update}/>
       </div>
     );
   }
