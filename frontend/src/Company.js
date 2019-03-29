@@ -41,9 +41,13 @@ class Company extends Component {
             <div className="Company-jobs">
                 {this.state.jobs.map(j => (
                     <JobCard key={ j.id } 
+                             id={ j.id }
                              title={ j.title } 
                              salary={ j.salary } 
-                             equity={ j.equity }/>
+                             equity={ j.equity }
+                             isApplied={(this.props.appliedJobsIds.has(j.id))}
+                             handleApply={this.props.handleApply}
+                             />
                 ))}
             </div>
         </div>

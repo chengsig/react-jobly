@@ -14,13 +14,15 @@ class Routes extends Component {
             <div className="Routes">
                 <Switch>
                     <Route exact path="/" render={() => <Homepage user={this.props.user} />} />
-                    <Route exact path="/companies/:handle" render={(rtProps) => <Company handle={rtProps.match.params.handle} />} />
+                    <Route exact path="/companies/:handle" render={(rtProps) => <Company handle={rtProps.match.params.handle}
+                        appliedJobsIds={this.props.user.appliedJobsIds}
+                        handleApply={this.props.handleApply} />} />
                     <Route exact path="/companies" render={() => <Companies />} />
-                    <Route exact path="/jobs" render={() => <Jobs />} />
+                    <Route exact path="/jobs" render={() => <Jobs handleApply={this.props.handleApply} appliedJobsIds={this.props.user.appliedJobsIds} />} />
                     <Route exact path="/login" render={(rtProps) => <Login {...rtProps}
                         user={this.props.user}
                         handleLogin={this.props.handleLogin} />} />
-                    <Route exact path="/profile" render={() => <Profile user={this.props.user} handleUpdate={this.props.handleUpdate}/>} />
+                    <Route exact path="/profile" render={() => <Profile user={this.props.user} handleUpdate={this.props.handleUpdate} />} />
                     <Redirect to="/" />
                 </Switch>
             </div>

@@ -20,6 +20,7 @@ class App extends Component {
     this.loginUser = this.loginUser.bind(this);
     this.logout = this.logout.bind(this);
     this.update = this.update.bind(this);
+    this.apply = this.apply.bind(this);
   }
 
   // logout a current user from app state and clear localStorage token
@@ -37,9 +38,9 @@ class App extends Component {
     });
   }
 
+  //update the current user data with profile updates
   async update(username, userInfo){
     try {
-      console.log(userInfo)
       let updatedUserInfo = await JoblyApi.updateUser(username, userInfo)
       this.setState({
         currUser: { updatedUserInfo }
@@ -47,6 +48,35 @@ class App extends Component {
     } catch (err){
       this.setState({
         error: "unable to update"
+      })
+    }
+  }
+
+  //apply a job for the user
+  async apply(jobId) {
+    let token = localStorage._token;
+    try {
+      
+      await JoblyApi.applyJob(jobId, token);
+      let payload = jwt_decode(token);
+      let username = payload.username;
+      let user = await JoblyApi.getUser(username, token);
+      let jobsId = new Set();
+      
+      for (let key in user.jobs ){
+        jobsId.add(user.jobs[key].id);
+      }
+      
+      user['appliedJobsIds'] = jobsId;
+
+      this.setState({
+        currUser: user,
+        loading: false
+      });
+
+    } catch (err) {
+      this.setState({
+        error:"unable to apply"
       })
     }
   }
@@ -61,11 +91,19 @@ class App extends Component {
         let username = payload.username;
   
         let user = await JoblyApi.getUser(username, token);
-  
+        let jobsId = new Set();
+      
+        for (let key in user.jobs ){
+          jobsId.add(user.jobs[key].id);
+        }
+        
+        user['appliedJobsIds'] = jobsId;
+
         this.setState({
           currUser: user,
           loading: false
         });
+
       } else {
         this.props.history.push("/login");
       }
@@ -85,7 +123,9 @@ class App extends Component {
         <Nav user={this.state.currUser}
           handleLogout={this.logout} />
         <Routes user={this.state.currUser}
-          handleLogin={this.loginUser} handleUpdate={this.update}/>
+          handleLogin={this.loginUser} 
+          handleApply={this.apply}
+          handleUpdate={this.update}/>
       </div>
     );
   }

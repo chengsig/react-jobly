@@ -77,12 +77,11 @@ class JoblyApi {
     static async userSignup(username, pwd, fname, lname, email){
       let res = await this.request("users", {
         "username": username,
-        "password": pwd,
         "first_name": fname,
         "last_name": lname,
         "email": email
       }, "post");
-      return res.token;
+      return res;
     }
 
     // makes get request to /users/:username, if sucessful returns all 
@@ -99,6 +98,13 @@ class JoblyApi {
     static async updateUser(username, data) {
       let res = await this.request(`users/${username}`, data, "patch");
       return res.user;
+    }
+
+    // makes post request to /jobs/:id/apply to apply a specific job
+    static async applyJob(jobId, token) {
+      let req = {'_token': token}
+      let res = await this.request(`jobs/${jobId}/apply`, req, "post");
+      return res.message;
     }
   }
 
