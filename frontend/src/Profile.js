@@ -30,13 +30,13 @@ class Profile extends Component {
             if (this.state.password.length === 0) {
                 this.setState({ error: "must enter password" });
             }
+
             else {
                 let updateData = {
                     "first_name": this.state.firstname,
                     "last_name": this.state.lastname,
                     "email": this.state.email,
                     "photo_url": this.state.photo_url,
-                    "password": this.state.password,
                     "_token": localStorage._token
                 }
                 for (let key in updateData) {
@@ -44,7 +44,7 @@ class Profile extends Component {
                         delete updateData[key];
                     }
                 }
-                delete updateData['password'];
+
                 this.props.handleUpdate(this.props.user.username,
                                     updateData)
             }
@@ -62,13 +62,13 @@ class Profile extends Component {
             <div className="Profile">
                 <p>Profile</p>
                 <form onSubmit={this.handleSubmit}>
-                    <h3>Username</h3>
+                    <h3>{this.props.user.username}</h3>
                     <h4>{this.props.user.username}</h4>
                     <div className="Profile-firstname">
                         <label htmlFor="firstname">First name: </label>
                         <input name="firstname"
                             id="firstname"
-                            //placeholder={this.props.user.first_name}
+                            placeholder={this.props.user.first_name}
                             onChange={this.handleChange}
                             value={this.state.first_name} />
                     </div>
@@ -76,7 +76,7 @@ class Profile extends Component {
                         <label htmlFor="lastname">Last name: </label>
                         <input name="lastname"
                             id="lastname"
-                            //placeholder={this.props.user.last_name}
+                            placeholder={this.props.user.last_name}
                             onChange={this.handleChange}
                             value={this.state.last_name} />
                     </div>
