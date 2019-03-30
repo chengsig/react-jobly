@@ -51,11 +51,13 @@ class Login extends Component {
             // calling up to app for the update method
             this.props.handleLogin(this.state.username);
             localStorage.setItem("_token", token);
-            console.log('we got here', token)
 
             this.setState({
                 username: "",
-                password: ""
+                password: "",
+                first_name: "",
+                last_name: "",
+                email: ""
             });
 
             this.props.history.push("/jobs");

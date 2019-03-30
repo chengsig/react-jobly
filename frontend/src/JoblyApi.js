@@ -1,5 +1,6 @@
 import axios from "axios";
 const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001/";
+
 class JoblyApi {
     static async request(endpoint, paramsOrData = {}, verb = "get") {
       
@@ -84,10 +85,8 @@ class JoblyApi {
     // makes get request to /users/:username, if sucessful returns all 
     // data about user.
     // {username, first_name, last_name, email, photo_url, jobs: [{},{}...]}
-    static async getUser(username, token){
-      let res = await this.request(`users/${username}`, {
-        "_token": token
-      });
+    static async getUser(username){
+      let res = await this.request(`users/${username}`);
       return res.user;
     }
 

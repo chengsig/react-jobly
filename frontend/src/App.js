@@ -17,7 +17,7 @@ class App extends Component {
       error: ""
     };
 
-    this.loginUser = this.loginUser.bind(this);
+    this.hydrate= this.hydrate.bind(this);
     this.logout = this.logout.bind(this);
     this.update = this.update.bind(this);
     this.apply = this.apply.bind(this);
@@ -31,25 +31,17 @@ class App extends Component {
     this.props.history.push('/'); //rtProps given by withRouter
   }
 
-  //update the current user in state with log in information
-  async loginUser(username) {
-    let token = localStorage._token
+  // hydrate the current user in state with login information
+  async hydrate(username) {
+    let token = localStorage._token;
     try {
       if (token !== undefined) {
-        let user = await JoblyApi.getUser(username, token);
-        let jobsId = new Set();
-      
-        for (let key in user.jobs ){
-          jobsId.add(user.jobs[key].id);
-        }
-        
-        user['appliedJobsIds'] = jobsId;
-
+        let user = await JoblyApi.getUser(username);
+        let hasApplied = new Set(user.jobs.map(job => job.id));
         this.setState({
-          currUser: user,
+          currUser: {...user, hasApplied},
           loading: false
         });
-
       } else {
         this.setState({ loading: false });
         this.props.history.push("/login");
@@ -64,9 +56,10 @@ class App extends Component {
   //update the current user data with profile updates
   async update(username, userInfo){
     try {
-      let updatedUserInfo = await JoblyApi.updateUser(username, userInfo)
+      let updatedUserInfo = await JoblyApi.updateUser(username, userInfo);
       this.setState({
-        currUser: { updatedUserInfo }
+        currUser: { updatedUserInfo },
+        loading: false
       });
     } catch (err){
       this.setState({
@@ -77,23 +70,11 @@ class App extends Component {
 
   //apply a job for the user
   async apply(jobId) {
-    let token = localStorage._token; // WJB token
     try {
-      
-      await JoblyApi.applyJob(jobId); // wJB TODO: don't need token
-      let payload = jwt_decode(token);
-      let username = payload.username; // WJB no
-      let user = await JoblyApi.getUser(username, token); // don't need to re-get from server
-      let jobsId = new Set();
-      
-      for (let key in user.jobs ){
-        jobsId.add(user.jobs[key].id);
-      }
-      
-      user['appliedJobsIds'] = jobsId;
-
+      await JoblyApi.applyJob(jobId);
+      let updatedUserInfo = await JoblyApi.getUser(this.state.currUser.username);
       this.setState({
-        currUser: user,
+        currUser: { updatedUserInfo },
         loading: false
       });
 
@@ -114,14 +95,6 @@ class App extends Component {
         let username = payload.username;
   
         let user = await JoblyApi.getUser(username, token);
-        let jobsId = new Set();
-      
-        for (let key in user.jobs ){
-          jobsId.add(user.jobs[key].id);
-        }
-        
-        user['appliedJobsIds'] = jobsId;
-
         this.setState({
           currUser: user,
           loading: false
@@ -142,12 +115,13 @@ class App extends Component {
     if (this.state.loading === true) {
       return <p>Loading...</p>
     }
+    
     return (
       <div className="App">
         <Nav user={this.state.currUser}
           handleLogout={this.logout} />
         <Routes user={this.state.currUser}
-          handleLogin={this.loginUser} 
+          handleLogin={this.hydrate} 
           handleApply={this.apply}
           handleUpdate={this.update}/>
       </div>

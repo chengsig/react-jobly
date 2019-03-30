@@ -37,7 +37,7 @@ class Jobs extends Component {
         try {
             let jobs = await JoblyApi.searchJobs(query);
             this.setState({
-                jobList: jobs //should make a copy here?
+                jobList: jobs
             })
         } catch (err) {
             this.setState({
@@ -46,22 +46,18 @@ class Jobs extends Component {
         }
     }
 
-    // for each jobCard click pass change click
-    handleApply(id) {
-
-    }
-
     render() {
         if (this.state.loading) {
             return <p>Loading...</p>
         }
+        console.log("we in jobs?", this.props.user)
         return (
             <div className="Jobs">
                 <Search handleSearch={query => this.search(query)} />
                 {this.state.jobList.map(j => (
                     <JobCard key={j.id}
                         id={j.id}
-                        isApplied={(this.props.appliedJobsIds.has(j.id))}
+                        isApplied={(this.props.user.hasApplied.has(j.id))}
                         title={j.title}
                         salary={j.salary}
                         equity={j.equity}

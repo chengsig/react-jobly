@@ -62,7 +62,7 @@ class Profile extends Component {
             <div className="Profile">
                 <p>Profile</p>
                 <form onSubmit={this.handleSubmit}>
-                    <h3>{this.props.user.username}</h3>
+                    <h3><b>Username</b></h3>
                     <h4>{this.props.user.username}</h4>
                     <div className="Profile-firstname">
                         <label htmlFor="firstname">First name: </label>

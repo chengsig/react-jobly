@@ -10,10 +10,10 @@ import Profile from './Profile';
 class Routes extends Component {
 
     render() {
+        console.log("routes check props", this.props.user)
         return (
             <div className="Routes">
                 <Switch>
-                    
                     <Route exact 
                            path="/" 
                            render={() => 
@@ -23,7 +23,7 @@ class Routes extends Component {
                            path="/companies/:handle" 
                            render={(rtProps) => 
                                 <Company handle={rtProps.match.params.handle}
-                                         appliedJobsIds={this.props.user.appliedJobsIds}
+                                         user={this.props.user}
                                          handleApply={this.props.handleApply} />} />
 
 
@@ -36,7 +36,7 @@ class Routes extends Component {
                            path="/jobs" 
                            render={() => 
                                 <Jobs handleApply={this.props.handleApply} 
-                                      appliedJobsIds={this.props.user.appliedJobsIds} />} /> 
+                                      user={this.props.user} />} /> 
 
                     <Route exact 
                            path="/login" 
